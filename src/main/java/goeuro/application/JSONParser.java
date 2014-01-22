@@ -86,7 +86,6 @@ public class JSONParser {
 
     private String getFieldByName( JSONObject jsonObject, String fieldName ) {
         try {
-            System.out.println( jsonObject.getString( fieldName ) );
             return jsonObject.getString( fieldName );
         } catch ( JSONException e ) {
             GeoEuroTestMain.exitWithErrorMessage( "Couldn't parse '" + fieldName + "' field. Exiting." );
