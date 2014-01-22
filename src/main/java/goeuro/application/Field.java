@@ -59,4 +59,12 @@ public class Field {
     public void setGeoPosition( double[] geo_position ) {
         this.geo_position = geo_position;
     }
+
+    public double getLatitude() {
+        return this.getGeoPosition() [ 0 ];
+    }
+
+    public double getLongitude() {
+        return this.getGeoPosition() [ 1 ];
+    }
 }
