@@ -6,9 +6,9 @@ package goeuro.application;
  * Time: 21:24
  * Project: GoEuroTest
  */
-public class Main {
+public class GeoEuroTestMain {
 
-    private static void exitWithErrorMessage( String errorMessage ) {
+    public static void exitWithErrorMessage( String errorMessage ) {
         System.err.println( errorMessage );
         System.exit( 1 );
     }
@@ -23,11 +23,13 @@ public class Main {
 
 
         JSONReader reader = new JSONReader();
+        String jsonString = "";
         try {
-            System.out.println( reader.getInfoByCity( cityName ) );
+            jsonString = reader.getInfoByCity( cityName );
         } catch ( Exception e ) {
             exitWithErrorMessage( "Couldn't load JSON." );
         }
 
+        JSONParser parser = new JSONParser( jsonString );
     }
 }
