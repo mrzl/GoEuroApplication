@@ -1,5 +1,9 @@
 package goeuro.application;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 /**
  * Author: mrzl
  * Date: 22.01.14
@@ -33,20 +37,33 @@ public class GeoEuroTestMain {
             exitWithErrorMessage( e.getMessage() );
         }
 
-
+        // creates a new JSONReader object
         JSONReader reader = new JSONReader();
-        String jsonString = "";
         try {
-            jsonString = reader.getInfoByCity( cityName );
+            // retrieves the entire json result as a string from the goeuro json api
+            reader.retrieveJsonFromGoEuroApi( cityName );
         } catch ( Exception e ) {
-            exitWithErrorMessage( "Couldn't load JSON." );
+            // if something goes wrong, print the message and exit
+            exitWithErrorMessage( "Couldn't load JSON from the GoEuro JSON API. Aborting." );
         }
 
-        JSONParser parser = new JSONParser( jsonString );
+        JSONParser parser = new JSONParser();
+        try {
+            // parse the string
+            parser.parse( reader.getJsonString() );
+        } catch ( JSONException e ) {
+            // if something with the parsing goes wrong, print the message and exit
+            exitWithErrorMessage( e.getMessage() + " Aborting." );
+        }
 
         String exportedCsvFileName = cityName + ".csv";
         CsvExporter csvExport = new CsvExporter( exportedCsvFileName );
-        csvExport.exportCsv( parser.getParsedFields() );
-
+        try {
+            // write the parsed fields to the csv file
+            csvExport.exportCsv( parser.getParsedFields() );
+        } catch ( IOException e ) {
+            // if something goes wrong with the csv export, print the message and exit.
+            exitWithErrorMessage( e.getMessage() + " Aborting." );
+        }
     }
 }
