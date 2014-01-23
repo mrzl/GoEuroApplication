@@ -16,26 +16,23 @@ public class JSONParser {
 
     private ArrayList<Field> parsedFields;
 
-    public JSONParser( String jsonString ) {
+    public JSONParser(  ) {
         this.parsedFields = new ArrayList<Field>();
+    }
 
-        try {
-            JSONObject jsonObject = new JSONObject( jsonString );
-            JSONArray jsonArray = jsonObject.getJSONArray( "results" );
-            for ( int i = 0; i < jsonArray.length(); i++ ) {
-                JSONObject s = jsonArray.getJSONObject( i );
+    public void parse( String jsonString ) throws JSONException {
+        JSONObject jsonObject = new JSONObject( jsonString );
+        JSONArray jsonArray = jsonObject.getJSONArray( "results" );
+        for ( int i = 0; i < jsonArray.length(); i++ ) {
+            JSONObject s = jsonArray.getJSONObject( i );
 
-                long id = getID( s );
-                String _type = get_Type( s );
-                String name = getName( s );
-                String type = getType( s );
-                double[] geo_position = getGeoLocation( s );
+            long id = getID( s );
+            String _type = get_Type( s );
+            String name = getName( s );
+            String type = getType( s );
+            double[] geo_position = getGeoLocation( s );
 
-                parsedFields.add( new Field( _type, id, name, type, geo_position ) );
-            }
-
-        } catch ( JSONException e ) {
-
+            parsedFields.add( new Field( _type, id, name, type, geo_position ) );
         }
     }
 
