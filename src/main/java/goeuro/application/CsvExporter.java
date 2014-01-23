@@ -20,23 +20,18 @@ public class CsvExporter {
         this.delimiter = ";";
     }
 
-    public void exportCsv( ArrayList<Field> fieldsToExport ) {
-        try {
-            FileWriter writer = new FileWriter( this.exportedCsvFileName );
-            writeCsvHeaderToFile( writer );
+    public void exportCsv( ArrayList<Field> fieldsToExport ) throws IOException {
+        FileWriter writer = new FileWriter( this.exportedCsvFileName );
+        writeCsvHeaderToFile( writer );
 
-            for ( Field f : fieldsToExport ) {
-                writeFieldToFile( writer, f );
-            }
-
-            writer.flush();
-            writer.close();
-        } catch ( IOException e ) {
-            e.printStackTrace();
-        } finally {
-            System.out.println( "Sucessfully exported " + fieldsToExport.size() + " fields to " + this.exportedCsvFileName + "." );
+        for ( Field f : fieldsToExport ) {
+            writeFieldToFile( writer, f );
         }
 
+        writer.flush();
+        writer.close();
+
+        System.out.println( "Sucessfully exported " + fieldsToExport.size() + " fields to " + this.exportedCsvFileName + "." );
     }
 
     private void writeCsvHeaderToFile( FileWriter writer ) throws IOException {
