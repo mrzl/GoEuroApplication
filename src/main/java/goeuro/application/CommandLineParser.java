@@ -7,8 +7,6 @@ package goeuro.application;
  * Project: GoEuroTest
  */
 public class CommandLineParser {
-    // TODO: check per regex if city name contains only letters
-
     public static String parseCommandLineInput( String[] args ) throws Exception {
         if ( args.length == 1 ) {
             String pattern = "[a-zA-z]+";
