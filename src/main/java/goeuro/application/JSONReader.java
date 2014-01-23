@@ -13,15 +13,16 @@ import java.nio.charset.Charset;
 public class JSONReader {
     private String jsonUrl;
     private String jsonString;
+
     public JSONReader() {
         this.jsonUrl = "https://api.goeuro.com/api/v1/suggest/position/en/name/";
     }
 
-    private static String readAll(Reader rd) throws IOException {
+    private static String readAll( Reader rd ) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
+        while ( ( cp = rd.read() ) != -1 ) {
+            sb.append( ( char ) cp );
         }
         return sb.toString();
     }
@@ -30,8 +31,8 @@ public class JSONReader {
         String fullUrl = this.jsonUrl += cityName;
 
         InputStream is = new URL( fullUrl ).openStream();
-        BufferedReader rd = new BufferedReader( new InputStreamReader(is, Charset.forName( "UTF-8" )));
-        String jsonText = readAll(rd);
+        BufferedReader rd = new BufferedReader( new InputStreamReader( is, Charset.forName( "UTF-8" ) ) );
+        String jsonText = readAll( rd );
         this.setJsonString( jsonText );
 
         is.close();
@@ -41,7 +42,7 @@ public class JSONReader {
         this.jsonString = jsonString;
     }
 
-    public String getJsonString( ) {
+    public String getJsonString() {
         return this.jsonString;
     }
 }
