@@ -12,6 +12,7 @@ import java.nio.charset.Charset;
  */
 public class JSONReader {
     private String jsonUrl;
+    private String jsonString;
     public JSONReader() {
         this.jsonUrl = "https://api.goeuro.com/api/v1/suggest/position/en/name/";
     }
@@ -25,16 +26,22 @@ public class JSONReader {
         return sb.toString();
     }
 
-    public String getInfoByCity( String cityName ) throws Exception {
+    public void retrieveJsonFromGoEuroApi( String cityName ) throws Exception {
         String fullUrl = this.jsonUrl += cityName;
-        try {
-            InputStream is = new URL( fullUrl ).openStream();
-            BufferedReader rd = new BufferedReader( new InputStreamReader(is, Charset.forName( "UTF-8" )));
-            String jsonText = readAll(rd);
-            is.close();
-            return jsonText;
-        } catch ( IOException e ) {
-            throw e;
-        }
+
+        InputStream is = new URL( fullUrl ).openStream();
+        BufferedReader rd = new BufferedReader( new InputStreamReader(is, Charset.forName( "UTF-8" )));
+        String jsonText = readAll(rd);
+        this.setJsonString( jsonText );
+
+        is.close();
+    }
+
+    private void setJsonString( String jsonString ) {
+        this.jsonString = jsonString;
+    }
+
+    public String getJsonString( ) {
+        return this.jsonString;
     }
 }
