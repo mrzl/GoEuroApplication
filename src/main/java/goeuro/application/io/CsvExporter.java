@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Date: 23.01.14
  * Time: 00:01
  * Project: GoEuroTest
- *
+ * <p/>
  * This class exports data to a CSV file. It's adopted to work with special GoEuro data.
  */
 public class CsvExporter {
@@ -59,19 +59,28 @@ public class CsvExporter {
      * Writes a typical header to the CSV file.
      *
      * @param writer a {@link java.io.FileWriter} the writer, where the header is to be written to
-     *
      * @throws IOException if something goes wrong, an exception is thrown
      */
     private void writeCsvHeaderToFile( final FileWriter writer ) throws IOException {
-        writer.append( "_type" + this.delimiter + "_id" + this.delimiter + "name" + this.delimiter + "type" + this.delimiter + "latitude" + this.delimiter + "longitude" + System.lineSeparator() );
+        writer.append( "_type" )
+                .append( this.delimiter )
+                .append( "_id" )
+                .append( this.delimiter )
+                .append( "name" )
+                .append( this.delimiter )
+                .append( "type" )
+                .append( this.delimiter )
+                .append( "latitude" )
+                .append( this.delimiter )
+                .append( "longitude" )
+                .append( System.lineSeparator() );
     }
 
     /**
      * Writes one line of data to the CSV file. This data is being specified by one {@link goeuro.application.CityInformationField} object
      *
-     * @param writer the {@link java.io.FileWriter} where the field is being written to
+     * @param writer               the {@link java.io.FileWriter} where the field is being written to
      * @param cityInformationField an instance representing the data of one line of the CSV file.
-     *
      * @throws IOException if something goes wrong, an {@link java.io.IOException} is being thrown
      */
     private void writeFieldToFile( final FileWriter writer, final CityInformationField cityInformationField ) throws IOException {

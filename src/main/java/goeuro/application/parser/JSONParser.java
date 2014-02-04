@@ -1,7 +1,6 @@
 package goeuro.application.parser;
 
 import goeuro.application.CityInformationField;
-import goeuro.application.GeoEuroTestMain;
 import goeuro.application.exceptions.JsonParserException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -142,8 +141,7 @@ public class JSONParser {
             Double latitude = Double.valueOf( this.getFieldByName( geoLocationJsonObject, latitudeFieldName ) );
             Double longitude = Double.valueOf( this.getFieldByName( geoLocationJsonObject, longitudeFieldName ) );
 
-            double[] geoLocation = { latitude, longitude };
-            return geoLocation;
+            return new double[]{ latitude, longitude };
 
         } catch ( JSONException e ) {
             throw new JsonParserException( "Couldn't parse '" + fieldName + "' field. Exiting." );
