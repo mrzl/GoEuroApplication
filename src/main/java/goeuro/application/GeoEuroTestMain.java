@@ -1,6 +1,8 @@
 package goeuro.application;
 
 import goeuro.application.exceptions.JsonParserException;
+import goeuro.application.io.CsvExporter;
+import goeuro.application.io.JSONReader;
 import goeuro.application.parser.CommandLineParser;
 import goeuro.application.parser.JSONParser;
 import org.json.JSONException;
@@ -31,6 +33,7 @@ public class GeoEuroTestMain {
      * @param args should have only one parameter. the city name of which the information is to be retrieved.
      */
     public static void main( String[] args ) {
+        // parses the command line
         String cityName = "";
         try {
             // parsing the command line parameters and returning the string of the city name
@@ -40,17 +43,17 @@ public class GeoEuroTestMain {
             exitWithErrorMessage( e.getMessage() );
         }
 
-        // creates a new JSONReader object
+        // reads JSON from the GoEuro API
         JSONReader reader = new JSONReader();
         try {
-            // retrieves the entire json result as a string from the goeuro json api
-            reader.retrieveJsonFromGoEuroApi( cityName );
-        } catch ( IOException e ) {
+            reader.retrieveJsonData( cityName );
+        } catch ( Exception e ) {
             // if something goes wrong, print the message and exit
             System.out.println( e.getMessage() );
             exitWithErrorMessage( "Couldn't load JSON from the GoEuro JSON API. Aborting." );
         }
 
+        // parses the JSON data
         JSONParser parser = new JSONParser();
         try {
             // parse the string
@@ -62,6 +65,7 @@ public class GeoEuroTestMain {
             exitWithErrorMessage( e.getMessage() );
         }
 
+        // exports the data to a CSV file
         String exportedCsvFileName = cityName + ".csv";
         CsvExporter csvExport = new CsvExporter( exportedCsvFileName );
         try {
