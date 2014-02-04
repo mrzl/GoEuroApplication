@@ -1,4 +1,6 @@
-package goeuro.application;
+package goeuro.application.io;
+
+import goeuro.application.CityInformationField;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,7 +24,7 @@ public class CsvExporter {
      *
      * @param exportedCsvFileName a {@link java.lang.String} that sets the file name of the exported CSV file
      */
-    public CsvExporter( String exportedCsvFileName ) {
+    public CsvExporter( final String exportedCsvFileName ) {
         this.exportedCsvFileName = exportedCsvFileName;
         // delimiter needs to be a semicolon, because the field 'name' contains commas
         this.delimiter = ";";
@@ -35,7 +37,7 @@ public class CsvExporter {
      * @param fieldsToExport an {@link java.util.ArrayList} containing {@link goeuro.application.CityInformationField} which are being saved to the file
      * @throws IOException if something with the writing goes wrong, it throws an {@link java.io.IOException}
      */
-    public void exportCsv( ArrayList<CityInformationField> fieldsToExport ) throws IOException {
+    public void exportCsv( final ArrayList<CityInformationField> fieldsToExport ) throws IOException {
         // creates a new FileWriter stating the file name
         FileWriter writer = new FileWriter( this.exportedCsvFileName );
         // writes the header of the CSV file to the file
@@ -60,7 +62,7 @@ public class CsvExporter {
      *
      * @throws IOException if something goes wrong, an exception is thrown
      */
-    private void writeCsvHeaderToFile( FileWriter writer ) throws IOException {
+    private void writeCsvHeaderToFile( final FileWriter writer ) throws IOException {
         writer.append( "_type" + this.delimiter + "_id" + this.delimiter + "name" + this.delimiter + "type" + this.delimiter + "latitude" + this.delimiter + "longitude" + System.lineSeparator() );
     }
 
@@ -72,7 +74,7 @@ public class CsvExporter {
      *
      * @throws IOException if something goes wrong, an {@link java.io.IOException} is being thrown
      */
-    private void writeFieldToFile( FileWriter writer, CityInformationField cityInformationField ) throws IOException {
+    private void writeFieldToFile( final FileWriter writer, final CityInformationField cityInformationField ) throws IOException {
         String lineToAdd =
                 cityInformationField.get_type() + this.delimiter +
                         cityInformationField.getId() + this.delimiter +
